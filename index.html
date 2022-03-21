@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <!-- Bootstrap CSS -->
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+  <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+  <link href="css/mytheme.min.css" rel="stylesheet" />
+  <link href="css/index.css" rel="stylesheet" />
+  <!-- FontAwesomeIcons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+    integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <title></title>
+</head>
+
+<body>
+  <header class="navbar sticky-top navbar-dark flex-column flex-md-row bd-navbar bg-primary">
+    <a class="navbar-brand" href="#">
+      <img src="assets/favicon.ico" width="30" height="30" class="d-inline-block align-top" alt="QLVL"> SemAnn
+    </a>
+    <div class="navbar-nav-scroll">
+      <ul class="navbar-nav bd-navbar-nav flex-row d-none d-md-flex" id="navbarTop">
+      </ul>
+    </div>
+  </header>
+  <div class="container-fluid" style="max-width: 90%;">
+    <div class="tab-content">
+      <div class="tab-pane active" id="start" role="tabpanel" aria-labelledby="start-tab">
+        <div id="welcome">
+          <div>
+            <h3 style="text-align:center;">Let's get to work!</h3>
+            <p>
+              <button type="button" class="btn shadow-sm btn-success"><a id="loadConcordance" class="concLoader">
+                  Load a concordance
+                </a></button>
+              <span class="mx-3">or</span>
+              <button type="button" class="btn shadow-sm btn-success"><a id="loadSettings">
+                  Open a project
+                </a></button>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+        <div id="setUpProject">
+          <h2>Project name: </h2>
+          <div id="projectName" contenteditable="true"></div>
+        </div>
+        <div class="playground" id="settingsOptions">
+          <div class="sidebar">
+            <nav class="nav nav-pills" id="editConcList">
+              <a class="nav-link active" id="nav-conc-tab" data-toggle="tab" href="#nav-conc" role="tab" aria-controls="nav-conc" aria-selected="true" style="font-weight: bold;">Concordance(s)</a>
+              <a class="nav-link active mx-1 concLoader" id="loadConcordance2" aria-controls="openConc" aria-selected="false" style="font-weight: bold;cursor:pointer;">
+                <i class="fas fa-plus-circle"></i>
+              </a>
+            </nav>
+            <hr>
+            <h4>Variables</h4>
+            <button type="button" class="btn shadow-sm sidebar my-1" id="newVariables"><i class="fa fa-plus-circle"></i> Variable</button>
+            <nav class="nav flex-column nav-pills" id="variablesList"></nav>
+          </div>
+          <div id="settingswork">
+            <div class="tab-content">
+              <div class="tab-pane fade show active" id="nav-conc" role="tabpanel" aria-labelledby="nav-conc-tab">
+                <div id="showConcordances"></div>
+              </div>
+            </div>
+            <div class="tab-content" id="editVariables">
+            </div>
+            <div class="modal fade" id="newVariableModal" tabindex="-1" role="dialog" aria-labelledby="newVariables"
+              aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="newVariableTitle">Which kind of variable would you like to add?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body" id="newVariableBody">
+                  </div>
+                  <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal" name="closeModal">Cancel</button> -->
+                    <button type="button" class="btn btn-primary" name="saveChanges" id="saveModal">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div id="projectSettings" contenteditable="true">Set up your project.</div> -->
+      </div>
+      <div class="tab-pane" id="workspace" role="tabpanel" aria-labelledby="workspace-tab">
+        <div class="playground">
+          <div class="sidebar">
+            <nav class="nav flex-column nav-pills" id="concFiles"></nav>
+          </div>
+          <div class="tab-content" id="concView"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Insert this line above script imports  -->
+  <script>
+    if (typeof module === 'object') { window.module = module; module = undefined; }
+  </script>
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="css/sweetalert2.min.css">
+  <script src="js/d3.js"></script>
+  <!-- lodash -->
+  <script src="js/FileSaver.js" type="text/javascript"></script>
+  <script src="js/sweetalert2.min.js"></script>
+  <script src="src/Swals.js"></script>
+  <script src="src/FileManager.js"></script>
+  <script src="src/miniClasses.js"></script>
+  <script src="src/Data.js"></script>
+  <script src="src/Annotation.js"></script>
+  <script src="src/Settings.js"></script>
+  <script src="src/Variables.js"></script>
+  <script src="src/UserInterface.js"></script>
+  <!-- <script src="utils/utils.js"></script>
+  <script src="src/navigation.js"></script>
+  <script src="src/fileManager.js"></script>
+  <script src="src/varManager.js"></script>
+  <script src="src/settingsEditor.js"></script>
+  <script src="src/setUpConcordances.js"></script>
+  <script src="src/loadConcordances.js"></script>
+  <script src="src/fileSaver.js"></script>
+  <script src="src/init.js"></script>
+   -->
+  <script src="index.js"></script>
+
+  <script>if (window.module) module = window.module;</script>
+
+</body>
+
+</html>

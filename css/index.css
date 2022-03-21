@@ -1,0 +1,176 @@
+#welcome {
+  display : grid;
+  place-items : center;
+  height : 50vh;
+}
+
+.concInit {
+  padding : 10px;
+  margin-bottom : 10px;
+  justify-content : center;
+  box-shadow:
+    inset 0 -1em 1em rgba(0,0,0,0.1), 
+    0 0  0 2px rgb(255,255,255),
+    0.3em 0.3em 1em rgba(0,0,0,0.3);
+}
+
+.concVariables {
+  height : 70vh;
+  overflow : auto;
+  padding : 10px;
+  margin-bottom : 10px;
+  box-shadow:
+    0 0  0 2px rgb(255,255,255),
+    0.3em 0.3em 1em rgba(0,0,0,0.3);
+}
+.playground {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: minmax(150px, 25%) 1fr;
+}
+
+#setUpProject,
+.btn-centered,
+.centered,
+.starField {
+  display: grid;
+  place-items: center;
+}
+
+div.sidebar {
+  background-color:  #f4f4f4;
+  padding: 10px; 
+}
+
+button.sidebar {
+  background-color: #984ea3;
+  font-weight: bold;
+  color: white;
+}
+
+div[contenteditable="true"]{
+  color: #343a40;
+  font-family: "Lucida Console", Courier, monospace;
+  border: 1px dotted #343a40;
+  padding: 2px 5px;
+}
+
+#newVariableBody,
+#showConcordances {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.card {
+  background-color: #f4f4f4;
+  display : flex;
+  flex-direction : column;
+  justify-content : space-between;
+  margin-top : 1rem;
+  padding: 1rem;
+}
+
+
+.variableEditField {
+  border : 1px solid #a65628;
+  padding : 1rem 1rem;
+  display : grid;
+  grid-template-rows : auto 1fr auto;
+}
+
+.variableTitle {
+  display : grid;
+  grid-gap : 3rem;
+  grid-template-columns: auto minmax(10px, 10%);
+}
+
+.rightmost {
+  display: grid;
+  justify-content: right;
+}
+
+.prefix {
+  text-align: right;
+  font-weight: bold;
+  padding-right: 10px;
+  font-size: 1.5em;
+}
+
+.btn-centered {
+  background-color: #984ea3;
+  font-weight: bold;
+  color : white;
+}
+
+.btn-checkbox {
+  color: black;
+  background: #f4f4f4;
+  border-color:  #984ea3;
+}
+
+.btn-checkbox:hover,
+.btn-checkbox.active,
+.catButton:active,
+.btn-cues:hover,
+.btn-cues.active {
+  color: white;
+  background: #984ea3;
+  border-color: #984ea3;
+}
+
+.btn-checkbox:active {
+  box-shadow: inset 0 0px
+}
+
+.btn-centered:hover,
+.btn-centered:active {
+  background-color: white;
+  color: #984ea3;
+}
+
+td[data-th="label"] {
+  font-style: italic;
+}
+
+caption {
+  caption-side: top;
+}
+
+.target {
+  font-weight: bold;
+  color:  #984ea3;
+  border : none;
+}
+
+.initLine {
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.confstar > i.far {
+  color : #aeb3b7;
+}
+
+.confstar > i.fas {
+  color : #f1c40f;
+}
+
+.concOverview {
+  display : grid;
+  grid-template-columns : repeat(11, 1fr);
+}
+
+.leftText {
+  grid-column : 1/6;
+}
+
+.centerText {
+  grid-column : 6/7;
+  padding-left : 0.5rem;
+  padding-right : 0.5rem;
+}
+
+.rightText {
+  grid-column : 7/12;
+}
