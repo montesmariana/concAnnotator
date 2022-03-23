@@ -47,7 +47,6 @@ function handleFileRead(event, filePath) {
     content: fs.readFileSync(filePath, "utf8"),
     basename: path.basename(filePath),
   };
-  console.log(toReturn);
   return toReturn;
 }
 async function handleFileSave(event, options, content) {
@@ -57,8 +56,7 @@ async function handleFileSave(event, options, content) {
   if (canceled) {
     return;
   } else {
-    console.log(filePath);
-    handleFileWrite(event, filePath, content);
+    return handleFileWrite(event, filePath, content);
   }
 }
 function handleFileWrite(event, filePath, content) {

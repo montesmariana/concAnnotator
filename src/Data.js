@@ -22,9 +22,11 @@ class Annotation {
     );
     this.lemmaColumn = this.columnMapping.lemma;
 
-    ann.variables === undefined
+    (ann.variables === undefined) | (ann.variables.length == 0)
       ? (this.variables = [])
       : ann.variables.forEach((variable) => this.addVariable(variable));
+    console.log(ann.variables);
+    console.log(this.variables);
     this.displayed = 0;
     this.annField = d3.select(`#${this.type}-Annotation`);
   }

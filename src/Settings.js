@@ -128,6 +128,7 @@ class Settings {
     d3.select("#projectName").text(this.projectName);
     delete this._tmp;
 
+    UserInterface.listVariables(this);
     UserInterface.launchConcordance(this);
   }
 
