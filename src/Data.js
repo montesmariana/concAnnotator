@@ -22,7 +22,7 @@ class Annotation {
     );
     this.lemmaColumn = this.columnMapping.lemma;
 
-    (ann.variables === undefined) | (ann.variables.length == 0)
+    ann.variables === undefined || ann.variables.length == 0
       ? (this.variables = [])
       : ann.variables.forEach((variable) => this.addVariable(variable));
     console.log(ann.variables);
