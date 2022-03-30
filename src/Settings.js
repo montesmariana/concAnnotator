@@ -154,7 +154,7 @@ class Settings {
         } else {
           this.concfile = await window.electronAPI.saveFile(
             FileManager.saveTsvOptions(this.projectName),
-            JSON.stringify(this.saveAnnotation())
+            this.saveAnnotation()
           );
         }
       }
