@@ -571,7 +571,12 @@ class Confidence extends Variable {
           );
       })
       .append("i")
-      .attr("class", (d) => (d <= token.checkAnnotation(this) ? "fas" : "far"))
+      .attr("class", (d) => {
+        return token.checkAnnotation(this) !== null &&
+          d <= token.checkAnnotation(this)
+          ? "fas"
+          : "far";
+      })
       .html("&#xf005;");
 
     conf.append("span").attr("class", "px-2").text("Maximum");
