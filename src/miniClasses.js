@@ -63,10 +63,16 @@ class ConcordanceLine {
   }
 
   addVariable(variable) {
+    if (variable.type === "input") {
+      return;
+    }
     this._variables.push(variable.name);
     this.styleTarget();
   }
   removeVariable(variable) {
+    if (variable.type === "input") {
+      return;
+    }
     this._variables = this._variables.filter((v) => v != variable.name);
     this.styleTarget();
   }
