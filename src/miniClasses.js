@@ -28,38 +28,40 @@ class ConcordanceLine {
       }
     });
   }
-
-  printOverview(node, concordance) {
+  printOverview(node) {
     let line = d3.select(node);
-    line
+    this.left_text = line
       .append("div")
       .attr("class", "leftText")
       .append("p")
-      .attr("class", "text-sm-right")
-      .text((d) => d.left);
+      .attr("class", "text-sm-right");
 
-    line
+    this.target_text = line
       .append("div")
       .attr("class", "centerText")
       .append("p")
       .attr("id", `target-${this.id.replaceAll("/", "-")}`)
       .attr("class", "text-sm-center")
       .style("font-weight", "bold")
-
-      .text((d) => d.target)
-      .style("cursor", "pointer")
-      .on("click", () => {
-        d3.select(`#${concordance.type}-Annotation-tab`).node().click();
-        concordance.displayed = concordance.text.indexOf(this);
-        concordance.displayLine();
-      });
+      .style("cursor", "pointer");
     this.styleTarget();
-    line
+    this.right_text = line
       .append("div")
       .attr("class", "rightText")
       .append("p")
-      .attr("class", "text-sm-left")
-      .text((d) => d.right);
+      .attr("class", "text-sm-left");
+  }
+  
+  writeOverview(concordance) {
+    this.left_text.text((d) => d.left);
+    this.target_text.text((d) => d.target)
+    .on("click", () => {
+      d3.select(`#${concordance.type}-Annotation-tab`).node().click();
+      concordance.displayed = concordance.text.indexOf(this);
+      concordance.displayLine();
+    });
+
+    this.right_text.text((d) => d.right);
   }
 
   addVariable(variable) {

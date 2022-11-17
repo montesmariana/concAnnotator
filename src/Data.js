@@ -124,7 +124,7 @@ class Annotation {
     this.variables = this.variables.filter((v) => v !== variable);
     this.text.forEach((token) => token.removeVariable(variable));
   }
-  listColumns(selection) {
+  listColumns(selection, settings) {
     const columnList = selection.selectAll("button").data(
       ["id", "left", "target", "right"].map((d) => {
         const column =
@@ -143,13 +143,25 @@ class Annotation {
       .text((d) => `${d.role} = ${d.column}`)
       .attr("value", (d) => d.column)
       .on("click", (d) => {
+        console.log(this._source.columns)
+        console.log(d.role)
         Sw.mapColumns(this._source.columns, d.role).then((result) => {
           if (result.value) {
-            this.assignColumn(d.role, result.value);
+            this.assignColumn(d.role, this._source.columns[result.value]);
           }
+          this.listColumns(selection, settings);
+          this.openAnnotation();
+          this.annSpace.selectAll(".concInit")
+            .select("p")
+            .html(
+              (d) => `${d.left} <span class='target'>${d.target}</span> ${d.right}`
+            );
+          this.overview
+            .each((d) => {
+              d.writeOverview(this);
+            });
         });
-        this.listColumns(selection);
-        this.openAnnotation();
+
       });
 
     columnList.exit().remove();
@@ -165,7 +177,7 @@ class Annotation {
             i: i,
           };
         }),
-      (d) => d.variable.name
+      (d) => d
     );
 
     workspace
@@ -252,7 +264,7 @@ class Annotation {
       .attr("class", "btn-group-toggle")
       .attr("data-toggle", "buttons")
       .attr("id", `${this.type}-columns`);
-    this.listColumns(columnList);
+    this.listColumns(columnList, settings);
 
     concCard.append("h6").text("Variables").style("font-weight", "bold");
 
@@ -311,6 +323,7 @@ class Annotation {
       .attr("role", "tabpanel")
       .attr("labelledby", (d) => `${this.type}-${d}-tab`)
       .each((d) => {
+        console.log("setting up concordance")
         const thisTab = viewer.select(`#${this.type}-${d}`);
         d === "Overview"
           ? this.showOverview(thisTab)
@@ -318,16 +331,18 @@ class Annotation {
       });
   }
   showConcordanceLines(selection) {
-    const annSpace = selection
+    this.annSpace = selection
       .selectAll("div.concAnalysis")
       .style("justify-content", "center")
-      .data(this.text, (d) => d.id)
+      .data(this.text, (d) => d)
       .enter()
       .append("div")
       .attr("class", "concAnalysis mt-4")
       .attr("token_id", (d) => d.id);
 
-    annSpace
+    this.annSpace.exit().remove();
+
+    this.annSpace
       .append("div")
       .attr("class", "concInit")
       .append("p")
@@ -336,13 +351,13 @@ class Annotation {
         (d) => `${d.left} <span class='target'>${d.target}</span> ${d.right}`
       );
 
-    this.annVars = annSpace.append("div").attr("class", "concVariables");
+    this.annVars = this.annSpace.append("div").attr("class", "concVariables");
 
     if (this.variables.length > 0) {
       this.openAnnotation();
     }
 
-    const moveAround = annSpace
+    const moveAround = this.annSpace
       .append("div")
       .style("display", "grid")
       .style("place-items", "center")
@@ -371,7 +386,7 @@ class Annotation {
   }
 
   showOverview(selection) {
-    selection
+    this.overview = selection
       .append("div")
       .attr("class", "mt-4")
       .style("height", "80vh")
@@ -381,8 +396,10 @@ class Annotation {
       .enter()
       .append("div")
       .attr("class", "concOverview")
-      .each((d, i, nodes) => {
-        d.printOverview(nodes[i], this);
-      });
+
+    this.overview.each((d, i, nodes) => {
+      d.printOverview(nodes[i]);
+      d.writeOverview(this)
+    });
   }
 }

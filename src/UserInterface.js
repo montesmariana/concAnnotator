@@ -310,32 +310,34 @@ class UserInterface {
   }
 
   static concViewer(annotations) {
-    const viewer = d3
+    console.log(annotations)
+    d3
       .select("#concView")
       .selectAll(".concFrame")
-      .data(annotations, (d) => d.type);
-
-    const newViewer = viewer
-      .enter()
-      .append("div")
-      .attr("class", "tab-pane fade concFrame")
-      .attr("id", (d) => d.type + "-view")
-      .attr("role", "tabpanel")
-      .attr("labelledby", (d) => d.type + "-view-tab")
-      .each((d, i, nodes) => {
-        d.setUpConcordance(nodes[i]);
-      });
-
-    viewer.exit().remove();
-
-    newViewer
-      .merge(viewer)
-      .classed("show active", (d) =>
-        d3.select("#" + d.type + "-view-tab").classed("active")
-      );
-
-    newViewer.exit().remove();
-
+      .data(annotations, (d) => d)
+      .join(
+        function(enter) {
+          return enter.append("div")
+          .attr("class", "tab-pane fade concFrame")
+          .attr("id", (d) => d.type + "-view")
+          .attr("role", "tabpanel")
+          .attr("labelledby", (d) => d.type + "-view-tab")
+          .each((d, i, nodes) => {
+            d.setUpConcordance(nodes[i]);
+        });
+        },
+        function(update) {
+          return update.each((d, i, nodes) => {
+              d.setUpConcordance(nodes[i]);
+          });
+      },
+        function(exit) {
+          return exit.remove();
+        }
+      ).classed("show active", (d) =>
+      d3.select("#" + d.type + "-view-tab").classed("active")
+  );
+      
     annotations.forEach((ann) => ann.displayLine());
   }
 }
