@@ -29,7 +29,7 @@ async function handleFileOpen(event, filetype) {
         { name: "Tab separated values", extensions: ["tsv"] },
         { name: "All Files", extensions: ["*"] },
       ],
-      properties: ["multiSelections"],
+      properties: ["multiSelections", "openFile"],
     };
   }
   const { canceled, filePaths } = await dialog.showOpenDialog(
