@@ -1,6 +1,6 @@
 {
   "name": "concannotator",
-  "version": "0.0.9",
+  "version": "0.1.1",
   "description": "Desktop application for annotation of concordances.",
   "main": "main.js",
   "scripts": {
@@ -67,7 +67,8 @@
             "repository": {
               "owner": "montesmariana",
               "name": "concAnnotator"
-            }
+            },
+            "draft": true
           }
         }
       ]
