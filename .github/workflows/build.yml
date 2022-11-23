@@ -1,17 +1,42 @@
-name: build-app
+name: Build
 on:
   push:
     branches:
       - main
+
 jobs:
-  build-on-win:
+  build_on_linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@master
+      with:
+        node-version: 14
+    - name: install dependencies
+      run: npm install
+    - name: build
+      run: npm run make
+
+  build_on_mac:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@master
+      with:
+        node-version: 14
+    - name: install dependencies
+      run: npm install
+    - name: build
+      run: npm run make
+
+  build_on_win:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-      - run: npm install
-      - run: npm run make
-      - run: ls
-    
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@master
+      with:
+        node-version: 14
+    - name: install dependencies
+      run: npm install
+    - name: build
+      run: npm run makename: build-app
